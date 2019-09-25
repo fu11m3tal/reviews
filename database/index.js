@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { Review } = require('./schema');
-var myDB = 'mongodb://18.216.137.141/reviewsDB';
+var myDB = 'mongodb://3.15.163.18/reviewsDB';
 
 mongoose.connect(myDB, {useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
