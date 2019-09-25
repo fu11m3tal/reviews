@@ -1,0 +1,12 @@
+config:
+  target: 'http://18.216.137.141:3003'
+  phases:
+    - duration: 60
+      arrivalRate: 1000
+  defaults:
+    headers:
+      x-my-service-auth: '987401838271002188298567'
+scenarios:
+  - flow:
+    - get:
+        url: "/api/restaurant/{{$randomNumber(1,10000000)}}/reviews"
