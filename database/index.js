@@ -1,16 +1,38 @@
 const mongoose = require('mongoose');
-const { Review } = require('./schema');
-var myDB = 'mongodb://3.15.163.18/reviewsDB';
+const { Review, Restaurant } = require('./schema');
 
-mongoose.connect(myDB, {useNewUrlParser: true, useUnifiedTopology: true });
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
+mongoose.connect('mongodb://localhost/reviewsDB', {  useNewUrlParser: true, useUnifiedTopology: true, reconnectInterval: 250, family: 4, useCreateIndex: true }).
+  catch(error => console.log(error));
+
+const db = mongoose.connection;
+db.on('error', () => {
+  console.log('mongoose connection error');
 });
+
+db.once('open', () => {
+  console.log('mongoose connected successfully');
+});
+
 
 exports.getAllReviews = (req, res) => {
   var { restaurant_id } = req.params
-  Review.find({ restaurant_id })
+  if (restaurant_id === ":restaurant_id") {
+    var id = 1
+  } else {
+    var id = Number(restaurant_id)
+  }
+  //Restaurant.find({_id: id})
+  // .then(restaurant => {
+  //   Review.find( { _id: { $in: restaurant[0].reviews } } )
+  //   .then(reviews => {
+  //     res.send(reviews)
+  //   })
+  //   .catch(err => {console.log(err)})
+  // })
+  // .catch(err => {console.log(err)})
+
+
+  Review.find({restaurant_id: id})
   .then(data => {
     res.send(data)
     console.log(`Successful get all reviews for restaurant_id: ${restaurant_id}`)

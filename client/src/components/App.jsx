@@ -86,7 +86,6 @@ class App extends React.Component {
       }
     } 
     this.getAllReviews = this.getAllReviews.bind(this);
-    this.getAllReviewsPG = this.getAllReviewsPG.bind(this);
 
     this.filterReviews = this.filterReviews.bind(this);
   }
